@@ -8,11 +8,30 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Input the final number: ");
-        int finalNumber = scanner.nextInt();
-        int waysToWin = countWaysToWin(1, 1, finalNumber);
-        System.out.println("The number of ways the game can be played is: " +waysToWin);
+        // Test Cases
+        int[] testCases = {10, 50, 1000, 50000};
+
+        // Prepare the table header
+        System.out.printf("%-10s%-15s%-15s\n", "n", "Execution Time", "Memory Usage (bytes)");
+        System.out.println("-------------------------------------------");
+
+        for (int n : testCases) {
+            System.out.println("Running for n = " + n);
+
+            // Measure execution time
+            long startTime = System.nanoTime();
+            int waysToWin = countWaysToWin(1, 1, n);
+            long endTime = System.nanoTime();
+            long executionTime = endTime - startTime;
+
+            // Measure memory usage
+            Runtime runtime = Runtime.getRuntime();
+            long memoryUsage = runtime.totalMemory() - runtime.freeMemory();
+
+            // Print results
+            System.out.printf("%-10d%-15d%-15d\n", n, executionTime, memoryUsage);
+            System.out.println("---------------------------");
+        }
     }
 
     public static int countWaysToWin(int currentNumber, int currentPlayer, int finalNumber) {
